@@ -84,7 +84,7 @@ extension Data {
     /// - Returns: The checksum of the processed content.
     public static func decompress(size: Int64, bufferSize: Int, skipCRC32: Bool,
                                   provider: Provider, consumer: Consumer) throws -> CRC32 {
-        #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+        #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(xrOS)
         return try self.process(operation: COMPRESSION_STREAM_DECODE, size: size, bufferSize: bufferSize,
                                 skipCRC32: skipCRC32, provider: provider, consumer: consumer)
         #else
@@ -351,7 +351,7 @@ extension Data {
         }
     }
 
-    #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+    #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(xrOS)
     #else
     mutating func withUnsafeMutableBytes<T>(_ body: (UnsafeMutableRawBufferPointer) throws -> T) rethrows -> T {
         let count = self.count
